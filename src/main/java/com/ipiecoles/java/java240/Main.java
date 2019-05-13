@@ -4,10 +4,23 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-
+    
+    
     public static void main(String[] args) throws IOException {
+    
+        BitcoinService bitcoinServiceWithCache = new BitcoinService();
+        bitcoinServiceWithCache.setForceRefresh(false);
+        BitcoinService bitcoinServiceWithoutCache = new BitcoinService();
+        bitcoinServiceWithoutCache.setForceRefresh(true);
+        WebPageManager webPageManager = new WebPageManager();
         ProduitManager pm = new ProduitManager();
-
+        
+        pm.setBitcoinService(bitcoinServiceWithCache);
+        pm.setWebPageManager(webPageManager);
+       
+        bitcoinServiceWithoutCache.setWebPageManager(webPageManager);
+        bitcoinServiceWithCache.setWebPageManager(webPageManager);
+        
         System.out.println("Bienvenue !");
         while(true){
             System.out.println("Vous souhaitez : ");
@@ -22,8 +35,7 @@ public class Main {
             int saisie = scanner.nextInt();
             switch (saisie){
                 case 1:
-                    BitcoinService bitcoinService = new BitcoinService();
-                    System.out.println("1 BTC = " + bitcoinService.getBitcoinRate() + " €");
+                    System.out.println("1 BTC = " + bitcoinServiceWithoutCache.getBitcoinRate() + " €");
                     break;
                 case 2:
                     pm.ajouterProduit();
