@@ -1,5 +1,8 @@
 package com.ipiecoles.java.java240;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -8,18 +11,10 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
     
-        BitcoinService bitcoinServiceWithCache = new BitcoinService();
-        bitcoinServiceWithCache.setForceRefresh(false);
-        BitcoinService bitcoinServiceWithoutCache = new BitcoinService();
-        bitcoinServiceWithoutCache.setForceRefresh(true);
-        WebPageManager webPageManager = new WebPageManager();
-        ProduitManager pm = new ProduitManager();
-        
-        pm.setBitcoinService(bitcoinServiceWithCache);
-        pm.setWebPageManager(webPageManager);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+        ProduitManager pm = ctx.getBean(ProduitManager.class);
        
-        bitcoinServiceWithoutCache.setWebPageManager(webPageManager);
-        bitcoinServiceWithCache.setWebPageManager(webPageManager);
+        BitcoinService bitcoinServiceWithoutCache = ctx.getBean("bitcoinServiceWithoutCache", BitcoinService)
         
         System.out.println("Bienvenue !");
         while(true){
