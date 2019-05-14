@@ -14,7 +14,7 @@ public class Main {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
         ProduitManager pm = ctx.getBean(ProduitManager.class);
        
-        BitcoinService bitcoinServiceWithoutCache = ctx.getBean("bitcoinServiceWithoutCache", BitcoinService)
+        BitcoinService bitcoinServiceWithoutCache = ctx.getBean("bitcoinServiceWithoutCache", BitcoinService.class);
         
         System.out.println("Bienvenue !");
         while(true){
