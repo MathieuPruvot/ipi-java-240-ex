@@ -1,12 +1,17 @@
 package com.ipiecoles.java.java240;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
-@Configuration
-@ComponentScan(basePackages = "com.ipiecoles")
+@SpringBootApplication
+@PropertySource("classpath:app.properties")
 public class SpringConfig {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(SpringConfig.class, args);
+	}
 	
 	@Bean(name="bitcoinServiceWithoutCache")
 	public BitcoinService bitcoinServiceWithoutCache(){

@@ -1,21 +1,25 @@
 package com.ipiecoles.java.java240;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
+@Component
+public class Main implements CommandLineRunner {
     
+    @Autowired
+    private BitcoinService bitcoinServiceWithoutCache;
     
-    public static void main(String[] args) throws IOException {
+    @Autowired
+    private ProduitManager pm;
     
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
-        ProduitManager pm = ctx.getBean(ProduitManager.class);
-       
-        BitcoinService bitcoinServiceWithoutCache = ctx.getBean("bitcoinServiceWithoutCache", BitcoinService.class);
-        
+    public void run(String[] args) throws IOException {
+
         System.out.println("Bienvenue !");
         while(true){
             System.out.println("Vous souhaitez : ");
